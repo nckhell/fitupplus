@@ -1,0 +1,72 @@
+.topbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 64px;
+  padding: 0;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+}
+
+.trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.trigger:hover {
+  color: #1890ff;
+}
+
+.topbar-right {
+  display: flex;
+  float: right;
+  height: 64px;
+  margin-left: auto;
+  overflow: hidden;
+}
+
+.topbar-spacer {
+  flex: 1 1 0%;
+}
+
+.user-menu .ant-menu-submenu-title {
+  height: 64px;
+}
+
+.user-menu.ant-menu-horizontal {
+  line-height: 64px;
+}
+
+.user-menu.ant-menu-horizontal > .ant-menu-submenu:hover {
+  color: #1890ff;
+  background-color: #f9f9fc;
+}
+
+.user-menu .ant-menu {
+  border-bottom: none;
+  height: 64px;
+}
+
+.user-menu.ant-menu-horizontal > .ant-menu-submenu {
+  top: 0;
+  margin-top: 0;
+}
+
+.ant-menu-horizontal > .ant-menu-item,
+.ant-menu-horizontal > .ant-menu-submenu {
+  border-bottom: none;
+}
+
+.ant-menu-horizontal > .ant-menu-item-active,
+.ant-menu-horizontal > .ant-menu-item-open,
+.ant-menu-horizontal > .ant-menu-item-selected,
+.ant-menu-horizontal > .ant-menu-item:hover,
+.ant-menu-horizontal > .ant-menu-submenu-active,
+.ant-menu-horizontal > .ant-menu-submenu-open,
+.ant-menu-horizontal > .ant-menu-submenu-selected,
+.ant-menu-horizontal > .ant-menu-submenu:hover {
+  border-bottom: none;
+}
