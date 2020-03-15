@@ -1,8 +1,6 @@
 {
-  "folders": [
-    {
-      "path": "/Users/nick/Documents/Github/fitupplus/packages/admin"
-    }
-  ],
-  "settings": {}
+	"folders": [{
+		"path": "/Users/nick/Documents/Github/fitupplus/packages/admin-panel"
+	}],
+	"settings": {}
 }
