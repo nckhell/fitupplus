@@ -28,7 +28,7 @@ module.exports = merge.smart(common, {
   },
   devServer: {
     historyApiFallback: true,
-    // host: '0.0.0.0', // server needs to be accessible externally
+    // host: 'admin.fitupplus.dev',
     port: 3000
     // proxy: {
     //   '/api': {

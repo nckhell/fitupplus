@@ -4,7 +4,7 @@ import './Login.css'
 import { Form, Input, Button, Checkbox } from 'antd'
 import logo from '../../assets/img/logo.png'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
-import { authenticate } from '../../helpers/auth/authenticate'
+import { login } from '../../utils/auth/login'
 import { useQuery } from '@apollo/react-hooks'
 import { User } from '../../graphql/queries/users/user.gql'
 
@@ -29,7 +29,7 @@ export const Login = () => {
           initialValues={{
             remember: true
           }}
-          onFinish={values => authenticate(history, values)}
+          onFinish={values => login()}
         >
           <div className="login-logo">
             <img src={logo} alt="Fit Up Plus logo" />
