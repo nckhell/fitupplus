@@ -1,19 +1,14 @@
-import React, { useContext } from 'react'
-import { useHistory } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Alert, Form, Input, Button } from 'antd'
 import './Login.css'
-import { Form, Input, Button, Checkbox } from 'antd'
 import logo from '../../assets/img/logo.png'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import { useAuth } from '../../contexts/auth-context'
 
 export const Login = () => {
   const auth = useAuth()
-
-  // const [error, setError] = useState(null)
+  const [loading, set_loading] = useState(false)
   // let history = useHistory()
-
-  // if (loading) return <p>Loading...</p>
-  // if (error) return <p>Error :(</p>
 
   return (
     <div className="wrapper">
@@ -24,24 +19,38 @@ export const Login = () => {
           initialValues={{
             remember: true
           }}
-          onFinish={values => auth.login()}
+          onFinish={async values => {
+            const { email, password } = values
+            set_loading(true)
+            await auth.login({ email, password })
+            set_loading(false)
+            console.log(auth)
+          }}
         >
           <div className="login-logo">
             <img src={logo} alt="Fit Up Plus logo" />
           </div>
+          {!!auth.errors && (
+            <Alert
+              message={auth.errors}
+              type="error"
+              showIcon
+              className="errors"
+            />
+          )}
           <Form.Item
-            name="username"
+            name="email"
             rules={[
               {
                 required: true,
-                message: 'Please input your username!'
+                message: 'Email is required'
               }
             ]}
           >
             <Input
               prefix={<UserOutlined className="site-form-item-icon" />}
               size="large"
-              placeholder="Username"
+              placeholder="Email"
             />
           </Form.Item>
           <Form.Item
@@ -49,7 +58,7 @@ export const Login = () => {
             rules={[
               {
                 required: true,
-                message: 'Please input your password!'
+                message: 'Password is required'
               }
             ]}
           >
@@ -61,21 +70,11 @@ export const Login = () => {
             />
           </Form.Item>
           <Form.Item>
-            <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox>Remember me</Checkbox>
-            </Form.Item>
-
-            <a className="login-form-forgot" href="">
-              Forgot password
-            </a>
-          </Form.Item>
-
-          <Form.Item>
             <Button
               type="primary"
               htmlType="submit"
               size="large"
-              //   loading={true}
+              loading={loading}
               className="login-form-button"
             >
               Log in
