@@ -1,24 +1,19 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import './Login.css'
 import { Form, Input, Button, Checkbox } from 'antd'
 import logo from '../../assets/img/logo.png'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
-import { login } from '../../utils/auth/login'
-import { useQuery } from '@apollo/react-hooks'
-import { User } from '../../graphql/queries/users/user.gql'
+import { useAuth } from '../../contexts/auth-context'
 
 export const Login = () => {
+  const auth = useAuth()
+
   // const [error, setError] = useState(null)
-  const { loading, error, data } = useQuery(User, {
-    variables: { id: 10 }
-  })
-  let history = useHistory()
+  // let history = useHistory()
 
-  if (loading) return <p>Loading...</p>
-  if (error) return <p>Error :(</p>
-
-  console.log(data)
+  // if (loading) return <p>Loading...</p>
+  // if (error) return <p>Error :(</p>
 
   return (
     <div className="wrapper">
@@ -29,7 +24,7 @@ export const Login = () => {
           initialValues={{
             remember: true
           }}
-          onFinish={values => login()}
+          onFinish={values => auth.login()}
         >
           <div className="login-logo">
             <img src={logo} alt="Fit Up Plus logo" />

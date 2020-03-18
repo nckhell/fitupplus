@@ -1,24 +1,32 @@
 //@flow
 import React from 'react'
 import './App.css'
-import ApolloClient from 'apollo-boost'
-import { ApolloProvider } from 'react-apollo'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { DashBoard } from '../DashBoard'
 import { LoginPage } from '../../pages/LoginPage'
-import { apollo_client } from '../../graphql/apollo_client'
+import { ProtectedRoute } from './ProtectedRoute'
+import { useAuth } from '../../contexts/auth-context'
 
 const App = () => {
+  const { is_loading, user } = useAuth()
+
+  if (is_loading) return <p>Loading</p>
+
+  console.log(user)
+
   return (
     <Router>
-      <ApolloProvider client={apollo_client}>
-        <div className="App">
-          <Switch>
-            <Route path="/login" component={LoginPage} />
-            <Route path="/" component={DashBoard} />
-          </Switch>
-        </div>
-      </ApolloProvider>
+      <div className="App">
+        <Switch>
+          <Route path="/login">
+            <LoginPage />
+          </Route>
+          <ProtectedRoute path="/">
+            <DashBoard />
+          </ProtectedRoute>
+          <Route path="*" component={() => '404 NOT FOUND'} />
+        </Switch>
+      </div>
     </Router>
   )
 }
