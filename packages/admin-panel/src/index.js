@@ -10,6 +10,18 @@ import { AuthProvider } from './contexts/auth-context'
 axios.defaults.baseURL = process.env.API_URL
 axios.defaults.withCredentials = true
 
+axios.interceptors.response.use(
+  response => {
+    return response
+  },
+  error => {
+    if (error.response.status === 401) {
+      console.log('UNAUTHORIZED')
+    }
+    return error
+  }
+)
+
 const root = document.getElementById('root')
 
 if (root === null) {

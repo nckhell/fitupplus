@@ -37,6 +37,13 @@
 
 @media (min-width: 1024px) {
   .login-container {
+    max-width: 40%;
+    flex-basis: 40%;
+  }
+}
+
+@media (min-width: 1280px) {
+  .login-container {
     max-width: 31%;
     flex-basis: 31%;
   }

@@ -5,13 +5,10 @@ import { useAuth } from '../../contexts/auth-context'
 
 export const ProtectedRoute = ({ children, ...rest }) => {
   const { is_authenticated } = useAuth()
-
   return (
     <Route
       {...rest}
-      render={({ location }) =>
-        is_authenticated ? children : <Redirect to="/login" />
-      }
+      render={() => (is_authenticated ? children : <Redirect to="/login" />)}
     />
   )
 }

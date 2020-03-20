@@ -28,7 +28,7 @@ export const Breadcrumb = ({ items }: PropsType) => {
         if (is_last_item) {
           return (
             <AntdBreadcrumb.Item key={name}>
-              <Text secondary>{name}</Text>
+              <Text type="secondary">{name}</Text>
             </AntdBreadcrumb.Item>
           )
         }
@@ -36,7 +36,7 @@ export const Breadcrumb = ({ items }: PropsType) => {
         return (
           <AntdBreadcrumb.Item key={name}>
             <Link to={build_item_url(items, index)}>
-              <Text secondary>{name}</Text>
+              <Text type="secondary">{name}</Text>
             </Link>
           </AntdBreadcrumb.Item>
         )

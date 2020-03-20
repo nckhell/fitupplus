@@ -8,6 +8,7 @@ import { TopBar } from '../TopBar'
 import { Breadcrumb } from '../Breadcrumb'
 import { FormOutlined } from '@ant-design/icons'
 import { InscriptionsPage } from '../../pages/InscriptionsPage'
+import { ProtectedRoute } from '../App/ProtectedRoute'
 
 export const DashBoard = () => {
   const [collapsed, setCollapsed] = useState(false)
@@ -43,9 +44,10 @@ export const DashBoard = () => {
             margin: '24px 16px'
           }}
         >
-          test
           <Switch>
-            <Route path="/inschrijvingen" component={InscriptionsPage} />
+            <ProtectedRoute path="/inschrijvingen">
+              <InscriptionsPage />
+            </ProtectedRoute>
           </Switch>
         </Content>
       </Layout>

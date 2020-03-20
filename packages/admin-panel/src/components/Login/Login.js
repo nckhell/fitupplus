@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useHistory, Redirect } from 'react-router-dom'
 import { Alert, Form, Input, Button } from 'antd'
 import './Login.css'
 import logo from '../../assets/img/logo.png'
@@ -8,7 +9,11 @@ import { useAuth } from '../../contexts/auth-context'
 export const Login = () => {
   const auth = useAuth()
   const [loading, set_loading] = useState(false)
-  // let history = useHistory()
+  const history = useHistory()
+
+  if (auth.is_authenticated) {
+    return <Redirect to="/" />
+  }
 
   return (
     <div className="wrapper">
@@ -22,9 +27,9 @@ export const Login = () => {
           onFinish={async values => {
             const { email, password } = values
             set_loading(true)
-            await auth.login({ email, password })
-            set_loading(false)
-            console.log(auth)
+            auth.login({ email, password, history }).then(() => {
+              set_loading(false)
+            })
           }}
         >
           <div className="login-logo">
@@ -34,6 +39,14 @@ export const Login = () => {
             <Alert
               message={auth.errors}
               type="error"
+              showIcon
+              className="errors"
+            />
+          )}
+          {!!auth.message && (
+            <Alert
+              message={auth.message}
+              type="info"
               showIcon
               className="errors"
             />

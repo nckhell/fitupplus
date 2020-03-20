@@ -3,7 +3,8 @@ import axios from 'axios'
 
 export type LoginType = {
   email: string,
-  password: string
+  password: string,
+  history: any
 }
 
 export const AuthContext = createContext()
@@ -22,6 +23,7 @@ const api_client = axios.create({
 export const AuthProvider = ({ children }) => {
   const [user, set_user] = useState(null)
   const [errors, set_errors] = useState(null)
+  const [message, set_message] = useState(null)
   const [is_loading, set_loading] = useState(true)
   const [is_authenticated, set_is_authenticated] = useState(false)
 
@@ -50,7 +52,8 @@ export const AuthProvider = ({ children }) => {
         is_authenticated,
         user,
         errors,
-        login: async ({ email, password }: LoginType) => {
+        message,
+        login: async ({ email, password, history }: LoginType) => {
           set_errors(null)
           await airlock_client
             .get('/airlock/csrf-cookie', {
@@ -59,31 +62,34 @@ export const AuthProvider = ({ children }) => {
               },
               withCredentials: true
             })
-            .then(() => {
-              return airlock_client
-                .post('/login', { email, password })
-                .then(response => {
-                  console.log(response)
-                  set_user(response.data)
-                  set_is_authenticated(true)
-                })
-                .catch(err => {
-                  const key = Object.keys(err.response.data.errors)[0]
-                  set_errors(err.response.data.errors[key][0])
-                })
-            })
+            .then(() => {})
             .catch(err => {
               set_errors(err.response)
             })
+
+          return airlock_client
+            .post('/login', { email, password })
+            .then(response => {
+              console.log(response)
+              set_user(response.data)
+              set_is_authenticated(true)
+              history.push('/')
+            })
+            .catch(err => {
+              const key = Object.keys(err.response.data.errors)[0]
+              set_errors(err.response.data.errors[key][0])
+            })
         },
-        logout: async () => {
-          is_loading(true)
+        logout: async history => {
+          set_loading(true)
           return airlock_client
             .post('/logout')
             .then(() => {
               set_user(null)
               set_is_authenticated(false)
-              is_loading(false)
+              set_loading(false)
+              set_message('You are succesfully logged out!')
+              history.push('/login')
             })
             .catch(err => {
               console.log(err.response)
