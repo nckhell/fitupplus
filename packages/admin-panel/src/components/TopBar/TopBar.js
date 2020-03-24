@@ -41,7 +41,7 @@ export const TopBar = (props: Props) => {
             }
           >
             <Menu.Item key="SignOut" onClick={() => auth.logout(history)}>
-              Sign out
+              <span id="sign-out">Sign out</span>
             </Menu.Item>
           </SubMenu>
         </Menu>

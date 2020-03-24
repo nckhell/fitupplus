@@ -21,7 +21,8 @@
   },
   "scripts": {
     "dev": "webpack-dev-server --config webpack.development.js",
-    "flow": "flow"
+    "flow": "flow",
+    "cypress:open": "cypress open"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -50,12 +51,14 @@
     "babel-plugin-import": "^1.13.0",
     "clean-webpack-plugin": "^2.0.2",
     "copy-webpack-plugin": "^5.0.3",
+    "cypress": "^4.2.0",
     "dotenv": "^8.2.0",
     "dotenv-webpack": "^1.7.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.10.0",
     "eslint-import-resolver-webpack": "^0.11.1",
+    "eslint-plugin-cypress": "^2.10.3",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.2",

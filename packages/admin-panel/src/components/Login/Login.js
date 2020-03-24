@@ -62,6 +62,7 @@ export const Login = () => {
           >
             <Input
               prefix={<UserOutlined className="site-form-item-icon" />}
+              id="email"
               size="large"
               placeholder="Email"
             />
@@ -78,6 +79,7 @@ export const Login = () => {
             <Input
               prefix={<LockOutlined className="site-form-item-icon" />}
               type="password"
+              id="password"
               size="large"
               placeholder="Password"
             />

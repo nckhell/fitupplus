@@ -1,0 +1,10 @@
+{
+    "projectId": "fitupplus-admin-panel",
+    "env": {
+        "host": "http://localhost:3000",
+        "airlock_url": "http://localhost:8000",
+        "api_url": "http://localhost:8000/api",
+        "test_user_email": "test@cypress.dev",
+        "test_user_password": "test"
+    }
+}
