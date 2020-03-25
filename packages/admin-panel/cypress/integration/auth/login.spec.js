@@ -1,18 +1,22 @@
 const TEST_USER_EMAIL = Cypress.env('test_user_email')
 const TEST_USER_PASSWORD = Cypress.env('test_user_password')
+const login_url = [Cypress.env('host'), 'login'].join('/')
 
 describe('Login procedure', () => {
   describe('when valid credentials are passed', () => {
-    it('should log the user in and redirect to the dashboard', () => {
+    before(() => {
       cy.login(TEST_USER_EMAIL, TEST_USER_PASSWORD)
-      // Check if we are signed in
+    })
+    it('should log the user in and redirect to the dashboard', () => {
+      cy.contains('FitUp Plus')
+    })
+    it('should redirect the user when they try to access the login page when logged in', () => {
+      cy.visit(login_url)
       cy.contains('FitUp Plus')
     })
   })
   describe('when invalid credentials are passed', () => {
     it('should show that email and password are required fields when both are left blank', () => {
-      const login_url = [Cypress.env('host'), 'login'].join('/')
-
       cy.server()
       cy.route({
         method: 'GET',

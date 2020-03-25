@@ -14,6 +14,8 @@ const API_endpoints = {
   user: [Cypress.env('api_url'), 'user'].join('/')
 }
 
+// See https://stackoverflow.com/questions/48940177/signin-request-failing-due-to-invalid-csrf
+// and https://github.com/cypress-io/cypress/issues/950
 Cypress.Commands.add('login', (email, password) => {
   const login_url = [Cypress.env('host'), 'login'].join('/')
 
