@@ -13,6 +13,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $this->create_admin_user();
+        $this->create_test_user();
         $this->create_random_users();
     }
 
@@ -27,6 +28,20 @@ class UsersTableSeeder extends Seeder
             'name' => env('ADMIN_NAME', 'Admin User'),
             'email' => env('ADMIN_EMAIL', 'hello@world.com'),
             'password' => bcrypt(env('ADMIN_PASSWORD', 'admin')),
+        ]);
+    }
+
+    /**
+     * Create a test user
+     *
+     * @return void
+     */
+    public function create_test_user()
+    {
+        DB::table('users')->insert([
+            'name' => 'Cypress Test',
+            'email' => 'test@cypress.dev',
+            'password' => bcrypt('test'),
         ]);
     }
 
