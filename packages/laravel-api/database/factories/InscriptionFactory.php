@@ -4,6 +4,7 @@
 
 use App\News;
 use Faker\Generator as Faker;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,22 +17,14 @@ use Faker\Generator as Faker;
 |
 */
 
-function get_fake_paragraphs(Faker $faker_instance)
-{
-    $paragraphs = rand(1, 5);
-    $i = 0;
-    $ret = "";
-    while ($i < $paragraphs) {
-        $ret .= "<p>" . $faker_instance->paragraph(rand(2, 6)) . "</p>";
-        $i++;
-    }
-    return $ret;
-}
-
 $factory->define(News::class, function (Faker $faker) {
+    $date = $faker->dateTimeBetween($startDate = '-2 years', $endDate = 'now');
+
     return [
-        'title' => $faker->title,
-        'slug' => $faker->slug,
-        'text' => get_fake_paragraphs($faker)
+        'roster_id' => rand(1, 5),
+        'date' => $date->format("Y-m-d"),
+        'name' => $faker->name,
+        'email' => $faker->email,
+        'unsubscribe_hash' => Str::random(10)
     ];
 });
