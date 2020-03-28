@@ -9,8 +9,8 @@
 // ***********************************************
 
 const API_endpoints = {
-  csrf_cookie: [Cypress.env('airlock_url'), 'airlock/csrf-cookie'].join('/'),
-  login: [Cypress.env('airlock_url'), 'login'].join('/'),
+  csrf_cookie: [Cypress.env('sanctum_url'), 'sanctum/csrf-cookie'].join('/'),
+  login: [Cypress.env('sanctum_url'), 'login'].join('/'),
   user: [Cypress.env('api_url'), 'user'].join('/')
 }
 
@@ -50,7 +50,7 @@ Cypress.Commands.add('login', (email, password) => {
 })
 
 Cypress.Commands.add('logout', () => {
-  const logout_endpoint = [Cypress.env('airlock_url'), 'logout'].join('/')
+  const logout_endpoint = [Cypress.env('sanctum_url'), 'logout'].join('/')
   const app_route = Cypress.env('host')
 
   cy.server()

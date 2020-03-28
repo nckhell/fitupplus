@@ -10,8 +10,8 @@ export type LoginType = {
 export const AuthContext = createContext()
 export const useAuth = () => useContext(AuthContext)
 
-const airlock_client = axios.create({
-  baseURL: process.env.AIRLOCK_AUTH_DOMAIN,
+const sanctum_client = axios.create({
+  baseURL: process.env.SANCTUM_AUTH_DOMAIN,
   withCredentials: true
 })
 
@@ -55,8 +55,8 @@ export const AuthProvider = ({ children }) => {
         message,
         login: async ({ email, password, history }: LoginType) => {
           set_errors(null)
-          await airlock_client
-            .get('/airlock/csrf-cookie', {
+          await sanctum_client
+            .get('/sanctum/csrf-cookie', {
               headers: {
                 'X-Requested-With': 'XMLHttpRequest'
               },
@@ -67,10 +67,9 @@ export const AuthProvider = ({ children }) => {
               set_errors(err.response)
             })
 
-          return airlock_client
+          return sanctum_client
             .post('/login', { email, password })
             .then(response => {
-              console.log(response)
               set_user(response.data)
               set_is_authenticated(true)
               history.push('/')
@@ -82,7 +81,7 @@ export const AuthProvider = ({ children }) => {
         },
         logout: async history => {
           set_loading(true)
-          return airlock_client
+          return sanctum_client
             .post('/logout')
             .then(() => {
               set_user(null)

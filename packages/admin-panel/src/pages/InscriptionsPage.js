@@ -1,9 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import * as moment from 'moment'
 import { DatePicker, Card, Col, Row, Statistic } from 'antd'
+import axios from 'axios'
 
 export const InscriptionsPage = () => {
   const [date, setDate] = useState(moment())
+
+  useEffect(() => {
+    axios
+      .get(
+        'http://localhost:8000/api/inscriptions/statistics/inscriptions_by_lessons/3'
+      )
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }, [])
 
   return (
     <div>
