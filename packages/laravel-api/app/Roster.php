@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Roster extends Model
 {
     /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'roster';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -29,4 +36,20 @@ class Roster extends Model
         'start_time' => 'required',
         'end_time' => 'required'
     ];
+
+    /**
+     * Get lesssion associated with the roster entry
+     */
+    public function lesson()
+    {
+        return $this->belongsTo('App\Lesson', 'lesson_id', 'id');
+    }
+
+    /**
+     * Get all inscription records associated with a roster entry.
+     */
+    public function inscriptions()
+    {
+        return $this->hasMany('App\Inscription', 'roster_id', 'id');
+    }
 }

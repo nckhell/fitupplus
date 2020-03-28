@@ -2,14 +2,15 @@
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
          bootstrap="vendor/autoload.php"
-         colors="true">
+         colors="true"
+         printerClass="Sempro\PHPUnitPrettyPrinter\PrettyPrinter">
     <testsuites>
         <testsuite name="Unit">
             <directory suffix="Test.php">./tests/Unit</directory>
         </testsuite>
 
-        <testsuite name="Feature">
-            <directory suffix="Test.php">./tests/Feature</directory>
+        <testsuite name="Api">
+            <directory suffix="Test.php">./tests/Api</directory>
         </testsuite>
     </testsuites>
     <filter>
@@ -18,6 +19,7 @@
         </whitelist>
     </filter>
     <php>
+        <env name="PHPUNIT_PRETTY_PRINT_PROGRESS" value="true" />
         <server name="APP_ENV" value="testing"/>
         <server name="BCRYPT_ROUNDS" value="4"/>
         <server name="CACHE_DRIVER" value="array"/>

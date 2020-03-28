@@ -19,8 +19,9 @@ class CreateInscriptionsTable extends Migration
 
             $table->date('date');
             $table->string('name');
-            $table->string('email');
-            $table->string('unsubscribe_hash');
+            $table->string('email')->nullable();
+            $table->string('unsubscribe_hash')->nullable();
+            $table->tinyInteger('public_inscription')->default(1);
 
             $table->timestamps();
             $table->softDeletes();

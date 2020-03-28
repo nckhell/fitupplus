@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Inscription extends Model
 {
     /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'inscriptions';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -15,7 +22,8 @@ class Inscription extends Model
         'date',
         'name',
         'email',
-        'unsubscribe_hash'
+        'unsubscribe_hash',
+        'public_inscription'
     ];
 
     /**
@@ -24,8 +32,17 @@ class Inscription extends Model
      * @return array
      */
     public static $validation_rules = [
+        'roster_id' => 'required|numeric',
         'date' => 'required|date',
         'name' => 'required|string',
-        'email' => 'required|email'
+        'email' => 'email'
     ];
+
+    /**
+     * Get roster record associated with the inscription.
+     */
+    public function roster()
+    {
+        return $this->belongsTo('App\Roster', 'roster_id', 'id');
+    }
 }

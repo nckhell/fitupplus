@@ -2,8 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Inscription;
-use App\News;
+use App\Roster;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
@@ -18,14 +17,11 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(Inscription::class, function (Faker $faker) {
-    $date = $faker->dateTimeBetween($startDate = '-24 months', $endDate = 'now');
-
+$factory->define(Roster::class, function (Faker $faker) {
     return [
-        'roster_id' => rand(1, 15),
-        'date' => $date->format("Y-m-d"),
-        'name' => $faker->name,
-        'email' => $faker->email,
-        'unsubscribe_hash' => Str::random(10)
+        'lesson_id' => rand(1, 8),
+        'day' => rand(1, 7),
+        'start_time' => $faker->time($format = 'H:i:s', $max = 'now'),
+        'end_time' => $faker->time($format = 'H:i:s', $max = 'now')
     ];
 });

@@ -15,7 +15,7 @@ class CreateRostersTable extends Migration
     {
         Schema::create('roster', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('lesson_id')->index();
+            $table->integer('lesson_id');
 
             $table->integer('day');
             $table->time('start_time');
