@@ -30,11 +30,14 @@ class InscriptionController extends Controller
                             $query->whereDate('date', date('Y-m-d', $date));
                         }
                     ]
-                )->where('day', $nbr_day_of_the_week)->get()
+                )
+                    ->where('day', $nbr_day_of_the_week)
+                    ->orderBy('start_time', 'asc')
+                    ->get()
             );
 
 
-            return Response::json($roster);
+            return $roster;
         }
 
         return new InscriptionsCollection(Inscription::with(['roster'])->get());

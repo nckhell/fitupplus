@@ -19,6 +19,7 @@ class Inscription extends Model
      * @var array
      */
     protected $fillable = [
+        'roster_id',
         'date',
         'name',
         'email',

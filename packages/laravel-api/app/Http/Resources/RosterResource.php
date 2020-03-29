@@ -15,11 +15,12 @@ class RosterResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'lesson' => new LessonResource($this->whenLoaded('lesson')),
-            'inscriptions' => new InscriptionsCollection($this->whenLoaded('inscriptions')),
+            'id' => $this->id,
             'day' => $this->day,
-            'start_time' => $this->start_time,
-            'end_time' => $this->end_time,
+            'start_time' => date('G:i', strtotime($this->start_time)),
+            'end_time' => date('G:i', strtotime($this->end_time)),
+            'lesson' => new LessonResource($this->whenLoaded('lesson')),
+            'inscriptions' => new InscriptionsCollection($this->whenLoaded('inscriptions'))
         ];
     }
 }

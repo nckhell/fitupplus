@@ -19,7 +19,7 @@ use Illuminate\Support\Str;
 */
 
 $factory->define(Inscription::class, function (Faker $faker) {
-    $date = $faker->dateTimeBetween($startDate = '-24 months', $endDate = 'now');
+    $date = $faker->dateTimeBetween($startDate = '-6 months', $endDate = 'now');
 
     return [
         'roster_id' => rand(1, 15),

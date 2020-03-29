@@ -22,6 +22,7 @@ class CreateRostersTable extends Migration
             $table->time('end_time');
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

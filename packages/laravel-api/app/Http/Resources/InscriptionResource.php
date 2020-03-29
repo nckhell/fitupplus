@@ -15,6 +15,7 @@ class InscriptionResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'date' => $this->date,
             'name' => $this->name,
             'email' => $this->email,
