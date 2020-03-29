@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import axios from 'axios'
+import { api_client } from '../helpers/axios/api_client'
 
 export type LoginType = {
   email: string,
@@ -12,11 +13,6 @@ export const useAuth = () => useContext(AuthContext)
 
 const sanctum_client = axios.create({
   baseURL: process.env.SANCTUM_AUTH_DOMAIN,
-  withCredentials: true
-})
-
-const api_client = axios.create({
-  baseURL: process.env.API_DOMAIN,
   withCredentials: true
 })
 

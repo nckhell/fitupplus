@@ -7,7 +7,7 @@ import { Switch, Route, Link } from 'react-router-dom'
 import { TopBar } from '../TopBar'
 import { Breadcrumb } from '../Breadcrumb'
 import { FormOutlined } from '@ant-design/icons'
-import { InscriptionsPage } from '../../pages/InscriptionsPage'
+import { InscriptionsPage } from '../../pages/inscriptions'
 import { ProtectedRoute } from '../App/ProtectedRoute'
 
 export const DashBoard = () => {

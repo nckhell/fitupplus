@@ -4,23 +4,13 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import { App } from './components/App'
 import * as serviceWorker from './serviceWorker'
-import axios from 'axios'
 import { AuthProvider } from './contexts/auth-context'
+import { ConfigProvider } from 'antd'
+import nl_BE from 'antd/lib/locale-provider/nl_BE'
+import moment from 'moment'
+import 'moment/locale/nl-be'
 
-axios.defaults.baseURL = process.env.API_URL
-axios.defaults.withCredentials = true
-
-axios.interceptors.response.use(
-  response => {
-    return response
-  },
-  error => {
-    if (error.response.status === 401) {
-      console.log('UNAUTHORIZED')
-    }
-    return error
-  }
-)
+moment.locale('nl-be')
 
 const root = document.getElementById('root')
 
@@ -29,7 +19,9 @@ if (root === null) {
 } else {
   ReactDOM.render(
     <AuthProvider>
-      <App />
+      <ConfigProvider locale={nl_BE}>
+        <App />
+      </ConfigProvider>
     </AuthProvider>,
     root
   )

@@ -1,0 +1,12 @@
+.inscription-table-header {
+  padding-left: 0;
+  padding-top: 0;
+}
+
+.add-inscription-header {
+  padding: 0;
+}
+
+.add-inscription-header .ant-page-header-heading-title {
+  font-size: 16px;
+}
