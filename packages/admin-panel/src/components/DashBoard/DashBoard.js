@@ -5,6 +5,7 @@ import { Layout, Menu } from 'antd'
 import { Logo } from '../Logo'
 import { Switch, Route, Link } from 'react-router-dom'
 import { TopBar } from '../TopBar'
+import { NotFoundPage } from '../../pages/404/NotFoundPage'
 import { Breadcrumb } from '../Breadcrumb'
 import { FormOutlined } from '@ant-design/icons'
 import { InscriptionsPage } from '../../pages/inscriptions'
@@ -48,6 +49,9 @@ export const DashBoard = () => {
             <ProtectedRoute path="/inschrijvingen">
               <InscriptionsPage />
             </ProtectedRoute>
+            <Route path="*">
+              <NotFoundPage />
+            </Route>
           </Switch>
         </Content>
       </Layout>

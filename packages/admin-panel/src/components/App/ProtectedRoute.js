@@ -1,14 +1,24 @@
 //@flow
 import React from 'react'
-import { BrowserRouter as Redirect, Route } from 'react-router-dom'
+import { Redirect, Route } from 'react-router-dom'
 import { useAuth } from '../../contexts/auth-context'
 
-export const ProtectedRoute = ({ children, ...rest }) => {
+export const ProtectedRoute = ({ children, ...props }) => {
   const { is_authenticated } = useAuth()
   return (
     <Route
-      {...rest}
-      render={() => (is_authenticated ? children : <Redirect to="/login" />)}
+      {...props}
+      render={() =>
+        is_authenticated ? (
+          children
+        ) : (
+          <Redirect
+            to={{
+              pathname: '/login'
+            }}
+          />
+        )
+      }
     />
   )
 }
