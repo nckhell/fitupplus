@@ -10,10 +10,15 @@ import {
 } from 'recharts'
 
 export type PropsType = {|
-  data: Array<{}>
+  data: Array<{}>,
+  dataKeys: {
+    xAxisLabel: string,
+    yAxisDataPoints: Array<string>
+  }
 |}
 
-export const AreaChart = ({ data }: PropsType) => {
+export const AreaChart = ({ data, dataKeys }: PropsType) => {
+  const { xAxisLabel, yAxisDataPoints } = dataKeys
   return (
     <div style={{ width: '100%', height: 300 }}>
       <ResponsiveContainer>
@@ -29,10 +34,20 @@ export const AreaChart = ({ data }: PropsType) => {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
+          <XAxis dataKey={xAxisLabel} />
           <YAxis />
           <Tooltip />
-          <Area type="monotone" dataKey="uv" stroke="#8884d8" fill="#8884d8" />
+          {yAxisDataPoints.map(key => {
+            return (
+              <Area
+                key={key}
+                type="monotone"
+                dataKey={key}
+                stroke="#8884d8"
+                fill="#8884d8"
+              />
+            )
+          })}
         </RechartsAreaChart>
       </ResponsiveContainer>
     </div>

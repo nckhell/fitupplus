@@ -7,14 +7,16 @@ import { Switch, Route, Link } from 'react-router-dom'
 import { TopBar } from '../TopBar'
 import { NotFoundPage } from '../../pages/404/NotFoundPage'
 import { Breadcrumb } from '../Breadcrumb'
-import { FormOutlined } from '@ant-design/icons'
-import { InscriptionsPage } from '../../pages/inscriptions'
+import { CalendarOutlined } from '@ant-design/icons'
+import { InscriptionsPage } from '../../pages/inscriptions/InscriptionsPage'
+import { StatisticsPage } from '../../pages/inscriptions/StatisticsPage'
 import { ProtectedRoute } from '../App/ProtectedRoute'
 
 export const DashBoard = () => {
   const [collapsed, setCollapsed] = useState(false)
   const { Sider, Content } = Layout
 
+  const { SubMenu } = Menu
   const toggleCollapsed = () => setCollapsed(!collapsed)
 
   return (
@@ -27,12 +29,36 @@ export const DashBoard = () => {
           defaultSelectedKeys={['1']}
           className="nav"
         >
-          <Menu.Item key="1">
-            <FormOutlined />
-            <Link to="/inschrijvingen">
-              <span>Inschrijvingen</span>
-            </Link>
-          </Menu.Item>
+          <SubMenu
+            key="sub1"
+            title={
+              <span>
+                <CalendarOutlined />
+                <span>Groepslessen</span>
+              </span>
+            }
+          >
+            <Menu.Item key="3">
+              <Link to="/groepslessen/inschrijvingen">
+                <span>Inschrijvingen</span>
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="4">
+              <Link to="/groepslessen/lesrooster">
+                <span>Lesrooster</span>
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="5">
+              <Link to="/groepslessen/lessen">
+                <span>Lessen</span>
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="6">
+              <Link to="/groepslessen/statistiek">
+                <span>Statistiek</span>
+              </Link>
+            </Menu.Item>
+          </SubMenu>
         </Menu>
       </Sider>
       <Layout className="site-layout">
@@ -46,8 +72,11 @@ export const DashBoard = () => {
           }}
         >
           <Switch>
-            <ProtectedRoute path="/inschrijvingen">
+            <ProtectedRoute path="/groepslessen/inschrijvingen">
               <InscriptionsPage />
+            </ProtectedRoute>
+            <ProtectedRoute path="/groepslessen/statistiek">
+              <StatisticsPage />
             </ProtectedRoute>
             <Route path="*">
               <NotFoundPage />

@@ -65,15 +65,16 @@ class StatisticsController extends Controller
                 DB::raw('COUNT(*) as count'),
                 DB::raw('YEAR(inscriptions.date) year'),
                 DB::raw('MONTH(inscriptions.date) month'),
-                DB::raw("DATE_FORMAT(inscriptions.date,'%b %Y') label"),
-                DB::raw('lessons.title lesson'),
-                DB::raw('roster.day'),
+                DB::raw("DATE_FORMAT(inscriptions.date,'%b %Y') period"),
+                DB::raw('roster.day day_of_the_week'),
                 DB::raw(
                     "CONCAT(
+                    lessons.title,
+                    ' ',
                     TIME_FORMAT(roster.start_time, '%H:%i'),
                     '-', 
                     TIME_FORMAT(roster.end_time, '%H:%i'))
-                     timeslot"
+                     label"
                 ),
             )
             ->groupBy('year', 'month', 'inscriptions.roster_id')
@@ -101,10 +102,8 @@ class StatisticsController extends Controller
 
         if ($month && $month > 0 && $month <= 12) {
             $query->whereMonth('inscriptions.date', '=', $month);
-            $query->groupBy('year', 'month');
         }
-
-        $query->groupBy('lessons.id');
+        $query->groupBy('year', 'month', 'lessons.id');
 
         return Response::json($query->get(), 200);
     }
