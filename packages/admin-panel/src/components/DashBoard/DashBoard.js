@@ -8,8 +8,8 @@ import { TopBar } from '../TopBar'
 import { NotFoundPage } from '../../pages/404/NotFoundPage'
 import { Breadcrumb } from '../Breadcrumb'
 import { CalendarOutlined } from '@ant-design/icons'
-import { InscriptionsPage } from '../../pages/inscriptions/InscriptionsPage'
-import { StatisticsPage } from '../../pages/inscriptions/StatisticsPage'
+import { InscriptionsPage } from '../../pages/groepslessen/inschrijvingen/InscriptionsPage'
+import { StatisticsPage } from '../../pages/groepslessen/statistieken/StatisticsPage'
 import { ProtectedRoute } from '../App/ProtectedRoute'
 
 export const DashBoard = () => {

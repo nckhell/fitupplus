@@ -13,11 +13,11 @@ import {
   Button,
   Tooltip
 } from 'antd'
-import { api_client } from '../../helpers/axios/api_client'
+import { api_client } from '../../../helpers/axios/api_client'
 import { StatisticsHeader } from './statistics'
-import { InscriptionTable } from '../../components/InscriptionTable'
-import { titleLens } from '../../api/lessons/lenses'
-import { startTimeLens, endTimeLens } from '../../api/roster/lenses'
+import { InscriptionTable } from '../../../components/InscriptionTable'
+import { titleLens } from '../../../api/lessons/lenses'
+import { startTimeLens, endTimeLens } from '../../../api/roster/lenses'
 import { SyncOutlined } from '@ant-design/icons'
 
 type InscriptionTablePropsType = {

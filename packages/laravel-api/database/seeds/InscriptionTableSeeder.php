@@ -11,6 +11,6 @@ class InscriptionTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Inscription::class, 2000)->create();
+        factory(App\Inscription::class, 5000)->create();
     }
 }

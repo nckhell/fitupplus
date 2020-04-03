@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react'
 import * as R from 'ramda'
 import * as moment from 'moment'
 import { Card, Col, Row, Statistic } from 'antd'
-import { api_client } from '../../helpers/axios/api_client'
+import { api_client } from '../../../helpers/axios/api_client'
 import {
   dailyTotalInscriptionsLens,
   monthlyTotalInscriptionsLens,
   totalInscriptionsLens
-} from '../../api/inscriptions/statistics/lenses'
+} from '../../../api/inscriptions/statistics/lenses'
 
 export const StatisticsHeader = () => {
   const [data, set_data] = useState(null)

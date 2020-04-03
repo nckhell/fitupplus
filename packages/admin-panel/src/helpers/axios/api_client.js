@@ -1,7 +1,7 @@
 //@flow
 import axios from 'axios'
 
-const api_client = axios.create({
+export const api_client = axios.create({
   baseURL: process.env.API_DOMAIN,
   withCredentials: true
 })
@@ -17,5 +17,3 @@ const api_client = axios.create({
 //     return error
 //   }
 // )
-
-export { api_client }
