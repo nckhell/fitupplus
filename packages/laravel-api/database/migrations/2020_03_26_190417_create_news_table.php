@@ -19,7 +19,7 @@ class CreateNewsTable extends Migration
             $table->text('title');
             $table->string('slug');
             $table->text('text');
-            $table->string('image')->nullable();
+            $table->text('images')->nullable();
 
             $table->tinyInteger('spotlight')->default(0);
             $table->tinyInteger('published')->default(1);

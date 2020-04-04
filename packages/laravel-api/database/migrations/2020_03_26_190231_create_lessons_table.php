@@ -20,7 +20,7 @@ class CreateLessonsTable extends Migration
             $table->string('title');
             $table->string('slug');
             $table->text('description')->nullable();
-            $table->string('image')->nullable();
+            $table->text('images')->nullable();
             $table->integer('max_inscriptions')->default(20);
             $table->integer('order')->index();
 

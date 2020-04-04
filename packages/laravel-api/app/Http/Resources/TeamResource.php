@@ -23,7 +23,7 @@ class TeamResource extends JsonResource
             'description' => $this->description,
             'profile_image' => $this->profile_image,
             'order' => $this->order,
-            'lessons' => new LessonsCollection($this->lessons),
+            'lessons' => new LessonsCollection($this->whenLoaded('lessons')),
         ];
     }
 }

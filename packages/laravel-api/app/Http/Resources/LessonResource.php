@@ -15,11 +15,12 @@ class LessonResource extends JsonResource
     public function toArray($request)
     {
         return [
-            // 'instructor' => new TeamResource($this->instructor),
+            'instructor' => new TeamResource($this->whenLoaded('instructor')),
+            'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->slug,
             'description' => $this->description,
-            'image' => $this->image,
+            'images' => explode(';', $this->images),
             'max_inscriptions' => $this->max_inscriptions,
             'order' => $this->order,
         ];

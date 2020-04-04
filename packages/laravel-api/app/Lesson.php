@@ -14,6 +14,13 @@ class Lesson extends Model
     protected $table = 'lessons';
 
     /**
+     * The associated directory for the images
+     *
+     * @var string
+     */
+    public static $image_dir = 'lessons';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -21,11 +28,24 @@ class Lesson extends Model
     protected $fillable = [
         'instructor_id',
         'title',
-        'slug',
         'description',
-        'image',
+        'images',
         'max_inscriptions',
         'order'
+    ];
+
+    /**
+     * Validation rules for the lessons
+     *
+     * @return array
+     */
+    public static $validation_rules = [
+        'instructor_id' => 'required|numeric',
+        'title' => 'required|string',
+        'description' => 'nullable|string',
+        'max_inscriptions' => 'nullable|numeric',
+        'images' => 'nullable|array',
+        'images.*' => 'nullable|mimes:jpeg,png,svg,jpg|max:2048'
     ];
 
     /**
