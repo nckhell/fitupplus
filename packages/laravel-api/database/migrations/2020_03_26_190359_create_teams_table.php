@@ -26,6 +26,7 @@ class CreateTeamsTable extends Migration
             $table->integer('order')->index();
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

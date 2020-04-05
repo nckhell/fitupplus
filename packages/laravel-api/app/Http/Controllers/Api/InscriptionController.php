@@ -25,7 +25,9 @@ class InscriptionController extends Controller
             $roster = new RosterCollection(
                 Roster::with(
                     [
-                        'lesson',
+                        'lesson' => function ($query) {
+                            $query->withTrashed();
+                        },
                         'inscriptions' => function ($query) use ($date) {
                             $query->whereDate('date', date('Y-m-d', $date));
                         }

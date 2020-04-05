@@ -10,6 +10,7 @@ import { Breadcrumb } from '../Breadcrumb'
 import { CalendarOutlined } from '@ant-design/icons'
 import { InscriptionsPage } from '../../pages/groepslessen/inschrijvingen/InscriptionsPage'
 import { StatisticsPage } from '../../pages/groepslessen/statistieken/StatisticsPage'
+import { LessonsPage } from '../../pages/groepslessen/lessen/LessonsPage'
 import { ProtectedRoute } from '../App/ProtectedRoute'
 
 export const DashBoard = () => {
@@ -77,6 +78,9 @@ export const DashBoard = () => {
             </ProtectedRoute>
             <ProtectedRoute path="/groepslessen/statistiek">
               <StatisticsPage />
+            </ProtectedRoute>
+            <ProtectedRoute path="/groepslessen/lessen">
+              <LessonsPage />
             </ProtectedRoute>
             <Route path="*">
               <NotFoundPage />

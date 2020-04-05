@@ -38,7 +38,6 @@ class StatisticsController extends Controller
      */
     public function monthly_inscriptions()
     {
-
         $data = DB::table('inscriptions')
             ->select(
                 DB::raw('COUNT(*) as count'),

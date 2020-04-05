@@ -30,15 +30,15 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
 
     Route::prefix('/inscriptions')->group(function () {
-        Route::get('/{year?}/{month?}/{day?}', 'InscriptionController@show');
-        Route::post('', 'InscriptionController@store_via_private_endpoint');
-        Route::delete('/{id}', 'InscriptionController@delete');
         Route::prefix('/statistics')->group(function () {
             Route::get('/totals', 'StatisticsController@inscription_totals');
             Route::get('/monthly', 'StatisticsController@monthly_inscriptions');
             Route::get('/inscriptions_by_roster', 'StatisticsController@inscriptions_by_roster');
             Route::get('/inscriptions_by_lessons/{month?}', 'StatisticsController@inscriptions_by_lessons');
         });
+        Route::get('/{year?}/{month?}/{day?}', 'InscriptionController@show');
+        Route::post('', 'InscriptionController@store_via_private_endpoint');
+        Route::delete('/{id}', 'InscriptionController@delete');
     });
 
     Route::prefix('/lessons')->group(function () {
