@@ -24,6 +24,10 @@ Route::prefix('/lessons')->group(function () {
     Route::get('', 'InscriptionController@store_via_private_endpoint');
 });
 
+Route::prefix('/team')->group(function () {
+    Route::get('', 'TeamController@show');
+});
+
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
@@ -42,8 +46,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
 
     Route::prefix('/lessons')->group(function () {
-        Route::get('', 'LessonsController@show');
+        Route::get('', 'LessonsController@index');
         Route::post('', 'LessonsController@store');
+        Route::get('/{id}', 'LessonsController@show');
         Route::put('/{id}', 'LessonsController@update');
         Route::delete('/{id}', 'LessonsController@delete');
     });
@@ -53,5 +58,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('', 'RosterController@store');
         Route::put('/{id}', 'RosterController@update');
         Route::delete('/{id}', 'RosterController@delete');
+    });
+
+    Route::prefix('/team')->group(function () {
     });
 });

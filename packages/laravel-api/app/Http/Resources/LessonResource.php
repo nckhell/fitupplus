@@ -3,6 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
+
 
 class LessonResource extends JsonResource
 {
@@ -15,14 +17,15 @@ class LessonResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'instructor' => new TeamResource($this->whenLoaded('instructor')),
             'id' => $this->id,
+            'instructor_id' => $this->instructor_id,
             'title' => $this->title,
             'slug' => $this->slug,
             'description' => $this->description,
-            'images' => explode(';', $this->images),
+            'images' => $this->images,
             'max_inscriptions' => $this->max_inscriptions,
             'order' => $this->order,
+            'instructor' => new TeamResource($this->whenLoaded('instructor'))
         ];
     }
 }

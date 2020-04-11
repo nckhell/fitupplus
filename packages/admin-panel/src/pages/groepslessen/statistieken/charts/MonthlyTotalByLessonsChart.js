@@ -70,7 +70,6 @@ export const MonthlyTotalByLessonsChart = () => {
 
   const { Option } = Select
 
-  console.log(lessons)
   return (
     <Card
       title={'Aantal inschrijvingen per groepsles per maand'}

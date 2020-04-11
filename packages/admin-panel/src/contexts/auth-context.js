@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
   const [is_loading, set_loading] = useState(true)
   const [is_authenticated, set_is_authenticated] = useState(false)
 
-  const initialize = () =>
+  const initialize = async () =>
     api_client
       .get('/user')
       .then(response => {
@@ -63,17 +63,21 @@ export const AuthProvider = ({ children }) => {
               set_errors(err.response)
             })
 
-          return sanctum_client
+          const login = await sanctum_client
             .post('/login', { email, password })
-            .then(response => {
-              set_user(response.data)
-              set_is_authenticated(true)
-              history.push('/')
+            .then(async () => {
+              await api_client.get('/user').then(response => {
+                set_user(response.data)
+                set_is_authenticated(true)
+                history.push('/')
+              })
             })
             .catch(err => {
               const key = Object.keys(err.response.data.errors)[0]
               set_errors(err.response.data.errors[key][0])
             })
+
+          return await login
         },
         logout: async history => {
           set_loading(true)

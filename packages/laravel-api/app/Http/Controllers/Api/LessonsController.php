@@ -13,15 +13,31 @@ use Illuminate\Support\Str;
 class LessonsController extends Controller
 {
     /**
-     * Return lessons
+     * Return all lessons
+     *
+     * @return Response
      */
-    public function show()
+    public function index()
     {
         return new LessonsCollection(Lesson::with(['instructor'])->get());
     }
 
     /**
+     * Return specific lesson
+     *
+     * @param  string  $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        return new LessonResource(Lesson::findOrFail($id));
+    }
+
+    /**
      * Create a new lesson
+     *
+     * @param  Request  $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -43,8 +59,9 @@ class LessonsController extends Controller
         $lesson = Lesson::create(array_replace(
             $request->all(),
             [
-                'slug' => Str::slug($request->get('title'), '-'),
-                'images' => join(';', $images)
+                'slug' => Str::slug($request->input('title'), '-'),
+                'images' => join(';', $images),
+                'order' => Lesson::count() + 1
             ]
         ));
 
@@ -56,9 +73,15 @@ class LessonsController extends Controller
 
     /**
      * Update a lesson
+     *
+     * @param  Request  $request
+     * @param  string  $id
+     * @return Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
+        $lesson = Lesson::findOrFail($id);
+
         /** 
          * Validation errors will be returned via JSON 
          * with status code 422
@@ -74,7 +97,7 @@ class LessonsController extends Controller
             }
         }
 
-        $lesson = Lesson::create(array_replace(
+        $lesson->update(array_replace(
             $request->all(),
             [
                 'slug' => Str::slug($request->get('title'), '-'),
@@ -83,18 +106,22 @@ class LessonsController extends Controller
         ));
 
         return Response::json([
-            "message" => "Lesson created!",
+            "message" => "Lesson updated!",
             "lesson" => new LessonResource($lesson)
         ], 201);
     }
 
     /**
      * Delete a lesson
+     *
+     * @param  string  $id
+     * @return Response
      */
-    public function delete(Request $request, $id)
+    public function delete($id)
     {
         $lesson = Lesson::findOrFail($id);
         $lesson->delete();
+        Storage::delete(explode(';', $lesson->images));
 
         return Response::json(null, 200);
     }

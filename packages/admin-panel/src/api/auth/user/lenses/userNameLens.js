@@ -1,6 +1,6 @@
 //@flow
-import R from 'ramda'
+import * as R from 'ramda'
 
-export const Path = ['data', 'name']
+export const Path = ['name']
 
 export const userNameLens = R.lensPath(Path)

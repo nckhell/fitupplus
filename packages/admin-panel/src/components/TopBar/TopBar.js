@@ -1,9 +1,11 @@
 //@flow
 import React from 'react'
+import * as R from 'ramda'
 import './TopBar.css'
 import { useHistory } from 'react-router-dom'
 import { Layout, Menu, Avatar } from 'antd'
 import { useAuth } from '../../contexts/auth-context'
+import { userNameLens } from '../../api/auth/user/lenses'
 
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons'
 
@@ -30,14 +32,15 @@ export const TopBar = (props: Props) => {
         <Menu key="user" mode="horizontal" className="user-menu">
           <SubMenu
             title={
-              <React.Fragment>
-                <span style={{ color: '#999', marginRight: 4 }}>Hi,</span>
-                <span>Nick</span>
-                <Avatar
-                  style={{ marginLeft: 8 }}
-                  src="https://image.zuiidea.com/photo-1525879000488-bff3b1c387cf.jpeg?imageView2/1/w/200/h/200/format/webp/q/75|imageslim"
-                />
-              </React.Fragment>
+              !!auth.user && (
+                <React.Fragment>
+                  <span style={{ color: '#999', marginRight: 4 }}>Hi,</span>
+                  <span>{R.view(userNameLens, auth.user)}</span>
+                  <Avatar style={{ marginLeft: 8, backgroundColor: '#1890ff' }}>
+                    {R.view(userNameLens, auth.user).substring(0, 1)}
+                  </Avatar>
+                </React.Fragment>
+              )
             }
           >
             <Menu.Item key="SignOut" onClick={() => auth.logout(history)}>

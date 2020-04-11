@@ -5,7 +5,6 @@ import { Spin } from 'antd'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { DashBoard } from '../DashBoard'
 import { LoginPage } from '../../pages/LoginPage'
-import { NotFoundPage } from '../../pages/404/NotFoundPage'
 import { ProtectedRoute } from './ProtectedRoute'
 import { useAuth } from '../../contexts/auth-context'
 

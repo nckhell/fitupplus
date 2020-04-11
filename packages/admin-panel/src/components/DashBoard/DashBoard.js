@@ -5,17 +5,16 @@ import { Layout, Menu } from 'antd'
 import { Logo } from '../Logo'
 import { Switch, Route, Link } from 'react-router-dom'
 import { TopBar } from '../TopBar'
-import { NotFoundPage } from '../../pages/404/NotFoundPage'
 import { Breadcrumb } from '../Breadcrumb'
 import { CalendarOutlined } from '@ant-design/icons'
-import { InscriptionsPage } from '../../pages/groepslessen/inschrijvingen/InscriptionsPage'
-import { StatisticsPage } from '../../pages/groepslessen/statistieken/StatisticsPage'
-import { LessonsPage } from '../../pages/groepslessen/lessen/LessonsPage'
 import { ProtectedRoute } from '../App/ProtectedRoute'
+import { useBreadcrumb } from '../../contexts/breadcrumb-context'
+import { routes } from '../../routes'
 
 export const DashBoard = () => {
   const [collapsed, setCollapsed] = useState(false)
   const { Sider, Content } = Layout
+  const breadcrumb = useBreadcrumb()
 
   const { SubMenu } = Menu
   const toggleCollapsed = () => setCollapsed(!collapsed)
@@ -31,7 +30,7 @@ export const DashBoard = () => {
           className="nav"
         >
           <SubMenu
-            key="sub1"
+            key="groepslessen"
             title={
               <span>
                 <CalendarOutlined />
@@ -39,22 +38,22 @@ export const DashBoard = () => {
               </span>
             }
           >
-            <Menu.Item key="3">
+            <Menu.Item key="inschrijvingen">
               <Link to="/groepslessen/inschrijvingen">
                 <span>Inschrijvingen</span>
               </Link>
             </Menu.Item>
-            <Menu.Item key="4">
+            <Menu.Item key="lesrooster">
               <Link to="/groepslessen/lesrooster">
                 <span>Lesrooster</span>
               </Link>
             </Menu.Item>
-            <Menu.Item key="5">
+            <Menu.Item key="lessen">
               <Link to="/groepslessen/lessen">
                 <span>Lessen</span>
               </Link>
             </Menu.Item>
-            <Menu.Item key="6">
+            <Menu.Item key="statistiek">
               <Link to="/groepslessen/statistiek">
                 <span>Statistiek</span>
               </Link>
@@ -64,27 +63,31 @@ export const DashBoard = () => {
       </Sider>
       <Layout className="site-layout">
         <TopBar collapsed={collapsed} toggleCollapsed={toggleCollapsed} />
-        <Breadcrumb
-          items={[{ name: 'Inschrijvingen', partial_url: 'inschrijvingen' }]}
-        />
+        <Breadcrumb items={breadcrumb.items.get} />
         <Content
           style={{
             margin: '24px 16px'
           }}
         >
           <Switch>
-            <ProtectedRoute path="/groepslessen/inschrijvingen">
-              <InscriptionsPage />
-            </ProtectedRoute>
-            <ProtectedRoute path="/groepslessen/statistiek">
-              <StatisticsPage />
-            </ProtectedRoute>
-            <ProtectedRoute path="/groepslessen/lessen">
-              <LessonsPage />
-            </ProtectedRoute>
-            <Route path="*">
-              <NotFoundPage />
-            </Route>
+            {routes.map((route, index) => {
+              if (route.protected) {
+                return (
+                  <ProtectedRoute
+                    key={index}
+                    path={route.path}
+                    exact={route.exact}
+                  >
+                    {route.page}
+                  </ProtectedRoute>
+                )
+              }
+              return (
+                <Route key={index} path={route.path} exact={route.exact}>
+                  {route.page}
+                </Route>
+              )
+            })}
           </Switch>
         </Content>
       </Layout>

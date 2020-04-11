@@ -78,6 +78,8 @@
                     @endauth
                 </div>
             @endif
+            
+            <img src="{{asset('storage/lessons/6BI93dnac8I5BNNxL66Q393jz9n67I2JHxj4QHFp.png')}}" />
 
             <div class="content">
                 <div class="title m-b-md">

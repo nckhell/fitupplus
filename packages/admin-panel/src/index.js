@@ -6,6 +6,7 @@ import { App } from './components/App'
 import * as serviceWorker from './serviceWorker'
 import { AuthProvider } from './contexts/auth-context'
 import { ConfigProvider } from 'antd'
+import { BreadcrumbProvider } from './contexts/breadcrumb-context'
 import nl_BE from 'antd/lib/locale-provider/nl_BE'
 import moment from 'moment'
 import 'moment/locale/nl-be'
@@ -19,9 +20,11 @@ if (root === null) {
 } else {
   ReactDOM.render(
     <AuthProvider>
-      <ConfigProvider locale={nl_BE}>
-        <App />
-      </ConfigProvider>
+      <BreadcrumbProvider>
+        <ConfigProvider locale={nl_BE}>
+          <App />
+        </ConfigProvider>
+      </BreadcrumbProvider>
     </AuthProvider>,
     root
   )

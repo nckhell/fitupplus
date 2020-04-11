@@ -21,9 +21,6 @@ export const Login = () => {
         <Form
           name="login_form"
           className="login-form"
-          initialValues={{
-            remember: true
-          }}
           onFinish={async values => {
             const { email, password } = values
             set_loading(true)
