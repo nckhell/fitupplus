@@ -1,4 +1,4 @@
-// @flow strict
+// @flow
 
 import { type BreadcrumbItemType } from '../../components/Breadcrumb'
 

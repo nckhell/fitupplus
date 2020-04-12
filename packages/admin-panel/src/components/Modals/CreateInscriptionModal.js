@@ -1,3 +1,4 @@
+//@flow
 import React from 'react'
 import { Modal, Form, Input, PageHeader, Tag } from 'antd'
 import moment from 'moment'

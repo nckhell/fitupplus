@@ -1,3 +1,4 @@
+//@flow
 import React, { useState } from 'react'
 import { useHistory, Redirect } from 'react-router-dom'
 import { Alert, Form, Input, Button } from 'antd'

@@ -7,3 +7,8 @@
 .nav {
   margin-top: 13px;
 }
+
+.ant-menu-item.ant-menu-item-only-child .anticon,
+.ant-menu-submenu-title.ant-menu-item-only-child .anticon {
+  margin-right: 10px !important;
+}

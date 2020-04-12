@@ -1,4 +1,7 @@
-export const slugify = str => {
+/* eslint-disable no-useless-escape */
+//@flow
+
+export const slugify = (str: string): string => {
   const a =
     'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;'
   const b =

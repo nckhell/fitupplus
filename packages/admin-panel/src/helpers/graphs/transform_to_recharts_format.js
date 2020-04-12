@@ -1,3 +1,4 @@
+//@flow
 import * as R from 'ramda'
 import { slugify } from '../strings'
 
