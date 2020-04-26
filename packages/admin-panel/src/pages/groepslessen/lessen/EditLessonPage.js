@@ -18,7 +18,8 @@ import {
   descriptionPath,
   imagesPath,
   instructorIdPath,
-  maxInscriptionsPath
+  maxInscriptionsPath,
+  imagesLens
 } from '../../../api/lessons/lenses'
 import { idLens, firstNameLens, lastNameLens } from '../../../api/team/lenses'
 import { UploadOutlined } from '@ant-design/icons'
@@ -35,6 +36,8 @@ export const EditLessonPage = () => {
   const history = useHistory()
   const [loading, set_loading] = useState(true)
   const [file_list, set_file_list] = useState([])
+  const [new_file_list, set_new_file_list] = useState([])
+  const [removed_file_list, set_removed_file_list] = useState([])
   const [form] = Form.useForm()
   const { TextArea } = Input
 
@@ -44,7 +47,25 @@ export const EditLessonPage = () => {
       set_team(R.view(R.lensPath(['data', 'data']), res))
     })
     api_client.get(`/lessons/${id}`).then(res => {
-      set_lesson(R.view(R.lensPath(['data', 'data']), res))
+      const lesson = R.view(R.lensPath(['data', 'data']), res)
+      set_lesson(lesson)
+      set_file_list(
+        R.compose(lessons => {
+          if (lessons) {
+            const create_file_list_entry = file => {
+              return {
+                uid: file.img_path,
+                name: file.img_path,
+                status: 'done',
+                url: file.img_url
+              }
+            }
+
+            return R.map(create_file_list_entry, lessons)
+          }
+          return []
+        }, R.view(imagesLens))(lesson)
+      )
       set_loading(false)
     })
   }, [id])
@@ -60,9 +81,14 @@ export const EditLessonPage = () => {
       R.omit(['images'])
     )(values)
 
-    file_list.forEach(file => {
+    new_file_list.forEach(file => {
       data.append('images[]', file)
     })
+
+    data.append('removed_images[]', [])
+    for (var i = 0; i < removed_file_list.length; i++) {
+      data.append('removed_images[]', removed_file_list[i])
+    }
 
     // Laravel method spoofing
     data.append('_method', 'PUT')
@@ -95,15 +121,23 @@ export const EditLessonPage = () => {
 
   const upload_props = {
     accept: 'image/png, image/jpeg',
+    listType: 'picture-card',
     multiple: true,
     onRemove: file => {
-      const index = file_list.indexOf(file)
-      const new_file_list = file_list.slice()
-      new_file_list.splice(index, 1)
-      set_file_list(new_file_list)
+      const delete_from_file_list = (list, file_to_delete) => {
+        const index = list.indexOf(file_to_delete)
+        const wip_list = list.slice()
+        wip_list.splice(index, 1)
+        return wip_list
+      }
+
+      set_removed_file_list([...removed_file_list, file.uid])
+      set_file_list(delete_from_file_list(file_list, file))
+      set_new_file_list(delete_from_file_list(new_file_list, file))
     },
     beforeUpload: (file, fileList) => {
       set_file_list([...file_list, ...fileList])
+      set_new_file_list([...new_file_list, ...fileList])
       return false
     },
     fileList: file_list
@@ -187,7 +221,7 @@ export const EditLessonPage = () => {
 
           <Form.Item {...tailFormItemLayout}>
             <Button type="primary" htmlType="submit" loading={updating}>
-              Wijzigen
+              Opslaan
             </Button>
           </Form.Item>
         </Form>

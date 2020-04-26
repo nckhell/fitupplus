@@ -81,6 +81,12 @@ class LessonsController extends Controller
     public function update(Request $request, $id)
     {
         $lesson = Lesson::findOrFail($id);
+        $lesson_images = explode(';', $lesson->images);
+
+        // Delete images if necessary
+        $removed_images = $request->get('removed_images') ;
+        Storage::delete($removed_images);
+        $wip_images = array_diff($lesson_images, $removed_images);
 
         /** 
          * Validation errors will be returned via JSON 
@@ -88,12 +94,10 @@ class LessonsController extends Controller
          **/
         $request->validate(Lesson::$validation_rules);
 
-        $images = [];
-
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $path = Storage::putFile(Lesson::$image_dir, $image);
-                $images[] = $path;
+                $wip_images[] = $path;
             }
         }
 
@@ -101,7 +105,7 @@ class LessonsController extends Controller
             $request->all(),
             [
                 'slug' => Str::slug($request->get('title'), '-'),
-                'images' => join(';', $images)
+                'images' => join(';', $wip_images)
             ]
         ));
 
